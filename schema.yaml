@@ -1,0 +1,206 @@
+swagger: '2.0'
+info:
+  description: |
+    All open api for eship.com 
+  version: 1.0.0
+  title: Eshipz Api
+  contact:
+    email: devops@ecourierz.com
+  
+# host: petstore.swagger.io
+# basePath: /v2
+
+tags:
+- name: Rate
+  description: Access to Petstore orders
+  externalDocs:
+    description: Find out more about our store
+    url: https://app.eshipz.com
+schemes:
+ - https
+paths:
+  /rates:
+    post:
+      tags:
+      - Rate
+      summary: Returns all the rate
+      operationId: placeOrder
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: order placed for purchasing the pet
+        required: true
+        schema:
+          $ref: '#/definitions/rate_schema'
+      responses:
+        200:
+          description: successful operation
+          #schema:
+          #  $ref: '#/definitions/rate_schema'
+        400:
+          description: Invalid Order
+  
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+
+
+definitions:
+  rate_schema:
+    type: object
+    properties:
+      is_document:
+        type: boolean
+        default: false
+      api_token:
+        type: integer
+        format: int64
+      shipment:
+        type: object
+        properties:
+          is_cod:
+            type: boolean
+            default: false
+          purpose:
+            type: string
+            enum : 
+            - commercial
+            - personal
+            - sample
+            - return
+            - repair
+            - gift
+            default: personal
+          collect_on_delivery:
+            type: object
+            properties: 
+              amount: 
+                type: integer
+                format: int32
+              currency: 
+                type: string
+          ship_from: 
+            type: object
+            properties: 
+              city: 
+                type: string
+              company_name: 
+                type: string
+              contact_name: 
+                type: string
+              country: 
+                type: string
+              email: 
+                type: string
+              phone: 
+                type: string
+              postal_code: 
+                type: string
+              state: 
+                type: string
+              street1: 
+                type: string
+              street2: 
+                type: string
+              street3: 
+                type: string
+              type: 
+                type: string
+          ship_to: 
+            type: object
+            properties: 
+              contact_name: 
+                type: string
+              phone: 
+                type: string
+              email: 
+                type: string
+              street1: 
+                type: string
+              street2: 
+                type: string
+              street3: 
+                type: string
+              postal_code: 
+                type: string
+              city: 
+                type: string
+              country: 
+                type: string
+              type: 
+                type: string
+              state: 
+                type: string
+          parcels: 
+            type: array
+            items: 
+              type: object
+              properties: 
+                description: 
+                  type: string
+                box_type: 
+                  type: string
+                weight: 
+                  type: object
+                  properties: 
+                    value: 
+                      type: integer
+                      format: int32
+                    unit: 
+                      type: string
+                dimension: 
+                  type: object
+                  properties: 
+                    width: 
+                      type: integer
+                      format: int32
+                    height: 
+                      type: integer
+                      format: int32
+                    length: 
+                      type: integer
+                      format: int32
+                    unit: 
+                      type: string
+                    items: 
+                      type: array
+                      items: 
+                        type: object
+                        properties: 
+                          description: 
+                            type: string
+                          origin_country: 
+                            type: string
+                          quantity: 
+                            type: integer
+                            format: int32
+                          price: 
+                            type: object
+                            properties: 
+                              amount: 
+                                type: integer
+                                format: int32
+                              currency: 
+                                type: string
+                          weight: 
+                            type: object
+                            properties: 
+                              value: 
+                                type: integer
+                                format: int32
+                              unit: 
+                                type: string
+             
+
+                
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+
+# Added by API Auto Mocking Plugin
+host: app.eshipz.com/
+# basePath: /MockArch/eshipzapi/1.0.0
