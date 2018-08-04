@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config['SWAGGER'] = {
     'title': 'Eshipz API'
 }
-swag = Swagger(app, template_file='colors_template.yaml')
+swag = Swagger(app, template_file='schema.yaml')
 
 
 @app.route('/hello')
