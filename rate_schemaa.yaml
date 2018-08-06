@@ -1,0 +1,7 @@
+definitions: 
+  billing: 
+    type: object
+    properties: 
+      paid_by: 
+        type: string
+  

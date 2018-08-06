@@ -12,12 +12,20 @@ info:
 
 tags:
 - name: Rate
-  description: Access to Petstore orders
+  description: Get the Rates
   externalDocs:
     description: Find out more about our store
     url: https://app.eshipz.com
+- name : Label
+  description: Generate the label
+  externalDocs:
+    description: Find out more about our store
+    url: https://app.eshipz.com  
 schemes:
  - https
+
+
+
 paths:
   /rates:
     post:
@@ -37,17 +45,32 @@ paths:
       responses:
         200:
           description: successful operation
+          schema:
+            $ref: '#/definitions/rate_schema'
+        400:
+          description: Invalid Order
+  /labels:
+    post:
+      tags:
+      - Label
+      summary: Generates the label
+      operationId: placeOrder
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Genarates the label
+        required: true
+        schema:
+          $ref: '#/definitions/label_schema'
+      responses:
+        200:
+          description: successful operation
           #schema:
           #  $ref: '#/definitions/rate_schema'
         400:
-          description: Invalid Order
-  
-securityDefinitions:
-  api_key:
-    type: apiKey
-    name: api_key
-    in: header
-
+          description: Invalid Order       
 
 definitions:
   rate_schema:
@@ -194,6 +217,180 @@ definitions:
                                 format: int32
                               unit: 
                                 type: string
+  label_schema:
+    billing: 
+    type: object
+    properties: 
+      paid_by: 
+        type: string
+      api_token: 
+        type: string
+      vendor_id: 
+        type: string
+      description: 
+        type: string
+      slug: 
+        type: string
+      purpose: 
+        type: string
+      parcel_contents: 
+        type: string
+      is_document: 
+        type: boolean
+      service_type: 
+        type: string
+      rate: 
+        type: object
+        properties: 
+          currency: 
+            type: string
+          amount: 
+            type: integer
+            format: int32
+      charged_weight: 
+        type: object
+        properties: 
+          value: 
+            type: integer
+            format: int32
+          unit: 
+            type: string
+      paper_size: 
+        type: string
+      customer_reference: 
+        type: string
+      invoice_number: 
+        type: string
+      is_cod: 
+        type: boolean
+      collect_on_delivery: 
+        type: object
+        properties: 
+          amount: 
+            type: integer
+            format: int32
+          currency: 
+            type: string
+      shipment: 
+        type: object
+        properties: 
+          ship_from: 
+            type: object
+            properties: 
+              contact_name: 
+                type: string
+              company_name: 
+                type: string
+              street1: 
+                type: string
+              city: 
+                type: string
+              state: 
+                type: string
+              postal_code: 
+                type: string
+              country: 
+                type: string
+              type: 
+                type: string
+              phone: 
+                type: string
+              street2: 
+                type: string
+              tax_id: 
+                type: string
+              street3: 
+                type: string
+              email: 
+                type: string
+              fax: 
+                type: string
+          ship_to: 
+            type: object
+            properties: 
+              contact_name: 
+                type: string
+              phone: 
+                type: string
+              email: 
+                type: string
+              street1: 
+                type: string
+              street2: 
+                type: string
+              street3: 
+                type: string
+              postal_code: 
+                type: string
+              city: 
+                type: string
+              state: 
+                type: string
+              country: 
+                type: string
+              type: 
+                type: string
+          parcels: 
+            type: array
+            items: 
+              type: object
+              properties: 
+                description: 
+                  type: string
+                box_type: 
+                  type: string
+                weight: 
+                  type: object
+                  properties: 
+                    value: 
+                      type: integer
+                      format: int32
+                    unit: 
+                      type: string
+                dimension: 
+                  type: object
+                  properties: 
+                    width: 
+                      type: integer
+                      format: int32
+                    height: 
+                      type: integer
+                      format: int32
+                    length: 
+                      type: integer
+                      format: int32
+                    unit: 
+                      type: string
+                items: 
+                  type: array
+                  items: 
+                    type: object
+                    properties: 
+                      description: 
+                        type: string
+                      origin_country: 
+                        type: string
+                      quantity: 
+                        type: integer
+                        format: int32
+                      price: 
+                        type: object
+                        properties: 
+                          amount: 
+                            type: integer
+                            format: int32
+                          currency: 
+                            type: string
+                      weight: 
+                        type: object
+                        properties: 
+                          value: 
+                            type: number
+                          unit: 
+                            type: string
+                              
+
+
              
 
                 

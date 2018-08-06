@@ -7,7 +7,12 @@ from flasgger import Swagger
 
 app = Flask(__name__)
 app.config['SWAGGER'] = {
-    'title': 'Eshipz API'
+    'title': 'Eshipz API',
+    "headers": [
+        ('Access-Control-Allow-Origin', '*'),
+        ('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE, OPTIONS"),
+        ('Access-Control-Allow-Credentials', "true"),
+]
 }
 swag = Swagger(app, template_file='schema.yaml')
 
